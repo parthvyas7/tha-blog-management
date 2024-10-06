@@ -6,14 +6,13 @@ const cors = require('cors')
 dotenv.config();
 
 require('./db')
+const routes = require('./routes')
 
 app.use(cors())
 
 app.use(express.json())
 
-app.get('/api', (req, res) => {
-  res.send('Hello World!')
-})
+app.use('/api', routes)
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
