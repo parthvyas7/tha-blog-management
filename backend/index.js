@@ -7,9 +7,14 @@ dotenv.config();
 
 require('./db')
 const routes = require('./routes')
+const corsOptions = {
+  origin: process.env.FRONTEND_URI || '*',
+  optionsSuccessStatus: 200,
+  credentials: true
+}
 
-app.use(cors())
 app.use(express.json())
+app.use(cors(corsOptions))
 app.use('/api', routes)
 
 app.listen(port, () => {
