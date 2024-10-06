@@ -17,15 +17,12 @@ function App() {
       .then((data) => setPosts(data));
   }, []);
 
-  const handleCreatePost = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setFormData({
       title: e.target.title.value,
       content: e.target.content.value,
     });
-
-    e.target.title.value = "";
-    e.target.content.value = "";
 
     if (editId) {
       fetch(`${backendUri}/api/${editId}`, {
@@ -59,6 +56,11 @@ function App() {
           setPosts([...posts, post]);
         });
     }
+
+    setFormData({
+      title: "",
+      content: "",
+    });
   };
 
   const handleEditPost = (post) => {
@@ -80,7 +82,7 @@ function App() {
   return (
     <>
       <h1>Blog App</h1>
-      <form onSubmit={handleCreatePost}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="title"
