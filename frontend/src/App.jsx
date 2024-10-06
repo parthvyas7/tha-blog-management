@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./index.css";
 
 const backendUri = import.meta.env.VITE_BACKEND_URI;
 
