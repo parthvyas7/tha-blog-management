@@ -8,7 +8,7 @@
   "keywords": [],
   "author": "Parth Vyas",
   "license": "MIT",
-  "description": "",
+  "description": "tha-blog-management-backend",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
