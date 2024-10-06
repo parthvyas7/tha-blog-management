@@ -5,7 +5,7 @@ const createPost = async (req, res) => {
 
   try {
     const post = await Post.create({ title, content });
-    res.status(201).json({ message: 'Post created!' });
+    res.status(201).json(post);
   } catch (error) {
     res.status(400).json({ message: 'Error creating post', error });
   }
@@ -36,8 +36,9 @@ const updatePost = async (req, res) => {
   const { title, content } = req.body;
 
   try {
-    const post = await Post.findByIdAndUpdate(id, { title, content });
-    res.status(200).json({ message: 'Post updated!' });
+    const oldPost = await Post.findByIdAndUpdate(id, { title, content });
+    const post = await Post.findById(id);
+    res.status(200).json(post);
   } catch (error) {
     res.status(400).json({ message: 'Error updating post', error });
   }
