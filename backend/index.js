@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
-const dotenv = require('dotenv');
-const port = process.env.PORT || 3000
 const cors = require('cors')
+const dotenv = require('dotenv');
 dotenv.config();
+const port = process.env.PORT || 3000
 
-require('./db')
 const routes = require('./routes')
+require('./db')
 const corsOptions = {
   origin: process.env.FRONTEND_URI || '*',
   optionsSuccessStatus: 200,
