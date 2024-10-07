@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./index.css";
 import DialogBox from "./DialogBox";
 import Modal from "./Modal";
+import SnackBar from "./SnackBar";
 
 const backendUri = import.meta.env.VITE_BACKEND_URI;
 
@@ -17,6 +18,13 @@ function App() {
   const [isOpenDialogBox, setIsOpenDialogBox] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [post, setPost] = useState({});
+  const [successMsg, setSuccessMsg] = useState("");
+  const [showSnackbar, setShowSnackbar] = useState(false);
+
+  const handleSnackbarClose = () => {
+    setShowSnackbar(false);
+  };
+
   function timeAgo(date) {
     const units = [
       { name: "year", millis: 1000 * 60 * 60 * 24 * 365 },
@@ -83,6 +91,8 @@ function App() {
           setPosts(posts.map((post) => (post._id === data._id ? data : post)));
         });
       setEditId(null);
+      setSuccessMsg("Post updated successfully");
+      setShowSnackbar(true);
     } else {
       fetch(`${backendUri}/api/create`, {
         method: "POST",
@@ -98,6 +108,8 @@ function App() {
         .then((post) => {
           setPosts([...posts, post]);
         });
+      setSuccessMsg("Post created successfully");
+      setShowSnackbar(true);
     }
 
     setFormData({
@@ -120,14 +132,17 @@ function App() {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then(() => setPosts(posts.filter((post) => post._id !== id)));
+      .then(() => {
+        setPosts(posts.filter((post) => post._id !== id));
+        setSuccessMsg("Post deleted successfully");
+        setShowSnackbar(true);
+      });
   };
 
   const handleViewPost = (post) => {
     setModalOpen(true);
     setPost(post);
   };
-
   return (
     <>
       <nav className="flex justify-between items-center p-4">
@@ -142,6 +157,7 @@ function App() {
           setEditId={setEditId}
         />
       </nav>
+
       {loading ? (
         <div className="flex justify-center items-center h-screen">
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-700"></div>
@@ -207,6 +223,13 @@ function App() {
             />
           )}
         </div>
+      )}
+      {showSnackbar && (
+        <SnackBar
+          message={successMsg}
+          duration={2000}
+          onClose={handleSnackbarClose}
+        />
       )}
     </>
   );
