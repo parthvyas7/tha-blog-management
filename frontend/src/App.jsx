@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./index.css";
 import DialogBox from "./DialogBox";
+import Modal from "./Modal";
 
 const backendUri = import.meta.env.VITE_BACKEND_URI;
 
@@ -14,6 +15,8 @@ function App() {
   const [error, setError] = useState(null);
   const [editId, setEditId] = useState(null);
   const [isOpenDialogBox, setIsOpenDialogBox] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [post, setPost] = useState(null);
   function timeAgo(date) {
     const units = [
       { name: "year", millis: 1000 * 60 * 60 * 24 * 365 },
@@ -120,6 +123,11 @@ function App() {
       .then(() => setPosts(posts.filter((post) => post._id !== id)));
   };
 
+  const handleViewPost = (post) => {
+    setModalOpen(true);
+    setPost(post);
+  };
+
   return (
     <>
       <nav className="flex justify-between items-center p-4">
@@ -144,40 +152,52 @@ function App() {
         </div>
       ) : (
         <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gray-200 max-h-screen overflow-y-auto">
-          {posts.map((post) => (
-            <div
-              key={post._id}
-              className="bg-white rounded shadow p-4 hover:shadow-xl transition duration-200 ease-in-out"
-            >
-              <h2 className="p-2 text-4xl line-clamp-1" title={post.title}>
-                {post.title}
-              </h2>
-              <p
-                className="p-2 text-xl text-gray-700 line-clamp-2"
-                title={post.content}
-              >
-                {post.content}
-              </p>
-              <p
-                title={formatDateToDDMMYYYY(post.dateCreated)}
-                className="p-2 text-gray-700"
-              >
-                {timeAgo(post.dateCreated)}
-              </p>
-              <button
-                className="m-2 p-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
-                onClick={() => handleEditPost(post)}
-              >
-                Edit
-              </button>
-              <button
-                className="m-2 p-4 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
-                onClick={() => handleDeletePost(post._id)}
-              >
-                Delete
-              </button>
+          {posts.length === 0 ? (
+            <div className="flex justify-center items-center h-screen">
+              <p className="text-xl text-gray-700">No Posts Found</p>
             </div>
-          ))}
+          ) : (
+            posts.map((post) => (
+              <div
+                key={post._id}
+                onClick={() => handleViewPost(post)}
+                className="bg-white rounded shadow p-4 hover:shadow-xl transition duration-200 ease-in-out cursor-pointer"
+              >
+                <h2 className="p-2 text-4xl line-clamp-1" title={post.title}>
+                  {post.title}
+                </h2>
+                <p
+                  className="p-2 text-xl text-gray-700 line-clamp-2"
+                  title={post.content}
+                >
+                  {post.content}
+                </p>
+                <p
+                  title={formatDateToDDMMYYYY(post.dateCreated)}
+                  className="p-2 text-gray-700"
+                >
+                  {timeAgo(post.dateCreated)}
+                </p>
+                <button
+                  className="m-2 p-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+                  onClick={() => handleEditPost(post)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="m-2 p-4 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+                  onClick={() => handleDeletePost(post._id)}
+                >
+                  Delete
+                </button>
+              </div>
+            ))
+          )}
+          <Modal
+            setModalOpen={setModalOpen}
+            modalOpen={modalOpen}
+            post={post}
+          />
         </div>
       )}
     </>

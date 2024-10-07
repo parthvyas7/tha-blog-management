@@ -87,7 +87,7 @@ const DialogBox = ({
           aria-labelledby="modal-title"
         >
           <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4">
+            <h2 className="text-2xl mb-4">
               {editId ? "Update Post" : "Create Post"}
             </h2>
             <form
