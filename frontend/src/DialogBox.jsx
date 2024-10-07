@@ -103,6 +103,7 @@ const DialogBox = ({
                   setFormData({ ...formData, title: e.target.value })
                 }
                 className="px-4 py-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+                required
               />
               <textarea
                 name="content"
@@ -112,6 +113,7 @@ const DialogBox = ({
                   setFormData({ ...formData, content: e.target.value })
                 }
                 className="px-4 py-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+                required
               />
               <button
                 type="submit"

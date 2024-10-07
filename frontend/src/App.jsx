@@ -113,7 +113,7 @@ function App() {
   return (
     <>
       <nav className="flex justify-between items-center p-4">
-        <h1 className="text-3xl font-bold">Blog App</h1>
+        <h1 className="text-4xl">Blog App</h1>
         <DialogBox
           handleSubmit={handleSubmit}
           formData={formData}
@@ -128,13 +128,15 @@ function App() {
         {posts.map((post) => (
           <div
             key={post._id}
-            className="bg-white rounded-lg shadow-xl p-4 hover:scale-95 transition duration-300 ease-in-out"
+            className="bg-white rounded-lg shadow-xl p-4 hover:scale-95 transition duration-200 ease-in-out"
           >
-            <h2 className="p-4 text-4xl">{post.title}</h2>
-            <p className="p-4 text-xl text-gray-700">{post.content}</p>
+            <h2 className="p-2 text-4xl line-clamp-1">{post.title}</h2>
+            <p className="p-2 text-xl text-gray-700 line-clamp-2">
+              {post.content}
+            </p>
             <p
               title={formatDateToDDMMYYYY(post.dateCreated)}
-              className="p-4 text-gray-700"
+              className="p-2 text-gray-700"
             >
               {timeAgo(post.dateCreated)}
             </p>
@@ -145,7 +147,7 @@ function App() {
               Edit
             </button>
             <button
-              className="p-4 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+              className="m-2 p-4 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
               onClick={() => handleDeletePost(post._id)}
             >
               Delete

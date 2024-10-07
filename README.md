@@ -10,7 +10,7 @@ This is Take-home assignment for MERN stack developer role.
 
 ## Screenshots
 
-![App Screenshot]()
+![App Screenshot](./app.webp)
 
 ## Run Locally
 
@@ -52,60 +52,54 @@ See `.env.sample`
 
 Import collection from `tha-blog-management_API_Collection.json` if using Thunder Client VS Code extension
 
-#### User signup
+#### Get all Posts
 
 ```http
-  POST /api/users/signup
+  GET /api/all
+```
+
+#### Get Post by ID
+
+```http
+  GET /api/:id
 ```
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `name` | `string` | **Required**. |
-| `email` | `string` | **Required**. |
-| `password` | `string` | **Required**. |
+| `id` | `string` | **Required**. |
 
-#### User login
+#### Update Post by ID
 
 ```http
-  POST /api/users/login
+  PUT /api/:id
 ```
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `email` | `string` | **Required**. |
-| `password` | `string` | **Required**. |
+| `id` | `string` | **Required**. |
+| `title` | `string` | **Required**. |
+| `content` | `string` | **Required**. |
 
-### Authenticated user only
-
-#### View profile
+#### Delete Post by ID
 
 ```http
-  GET /api/users/me
+  DELETE /api/:id
 ```
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `token` | `string` | JWT token in Authorisation Header |
+| `id` | `string` | **Required**. |
 
-#### Get a random joke
+#### Create Post
 
 ```http
-  GET /api/random-joke
+  POST /api/create
 ```
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `token` | `string` | JWT token in Authorisation Header |
-
-#### User logout
-
-```http
-  POST /api/users/logout
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `token` | `string` | JWT token in Authorisation Header |
+| `title` | `string` | **Required**. |
+| `content` | `string` | **Required**. |
 
 ## License
 
