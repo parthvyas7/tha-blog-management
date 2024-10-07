@@ -1,9 +1,12 @@
 import { useRef, useEffect } from "react";
 
-const Modal = ({ setModalOpen, modalOpen, post }) => {
+const Modal = ({ setModalOpen, modalOpen, post, setPost }) => {
   const modalRef = useRef(null);
 
-  const closeModal = () => setModalOpen(false);
+  const closeModal = () => {
+    setModalOpen(false);
+    setPost({});
+  };
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -25,6 +28,7 @@ const Modal = ({ setModalOpen, modalOpen, post }) => {
     const handleEscapeKey = (event) => {
       if (event.key === "Escape") {
         setModalOpen(false);
+        setPost({});
       }
     };
 
@@ -35,7 +39,7 @@ const Modal = ({ setModalOpen, modalOpen, post }) => {
     return () => {
       document.removeEventListener("keydown", handleEscapeKey);
     };
-  }, [modalOpen, setModalOpen]);
+  }, [modalOpen, setModalOpen, setPost]);
 
   return (
     <div className="p-4">

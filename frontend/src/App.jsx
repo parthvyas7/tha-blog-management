@@ -160,8 +160,7 @@ function App() {
             posts.map((post) => (
               <div
                 key={post._id}
-                onClick={() => handleViewPost(post)}
-                className="bg-white rounded shadow p-4 hover:shadow-xl transition duration-200 ease-in-out cursor-pointer"
+                className="bg-white rounded shadow p-4 hover:shadow-xl transition duration-200 ease-in-out"
               >
                 <h2 className="p-2 text-4xl line-clamp-1" title={post.title}>
                   {post.title}
@@ -178,6 +177,12 @@ function App() {
                 >
                   {timeAgo(post.dateCreated)}
                 </p>
+                <button
+                  className="m-2 p-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+                  onClick={() => handleViewPost(post)}
+                >
+                  View
+                </button>
                 <button
                   className="m-2 p-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
                   onClick={() => handleEditPost(post)}
@@ -198,6 +203,7 @@ function App() {
               setModalOpen={setModalOpen}
               modalOpen={modalOpen}
               post={post}
+              setPost={setPost}
             />
           )}
         </div>
