@@ -128,7 +128,7 @@ function App() {
         {posts.map((post) => (
           <div
             key={post._id}
-            className="bg-white rounded-lg shadow-xl p-4 hover:scale-95 transition duration-200 ease-in-out"
+            className="bg-white rounded shadow p-4 hover:shadow-xl transition duration-200 ease-in-out"
           >
             <h2 className="p-2 text-4xl line-clamp-1">{post.title}</h2>
             <p className="p-2 text-xl text-gray-700 line-clamp-2">

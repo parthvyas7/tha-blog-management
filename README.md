@@ -50,7 +50,7 @@ See `.env.sample`
 
 ## API Reference
 
-Import collection from `tha-blog-management_API_Collection.json` if using Thunder Client VS Code extension
+Import collection from `backend/tha-blog-management_API_Collection.json` if using Thunder Client VS Code extension
 
 #### Get all Posts
 
