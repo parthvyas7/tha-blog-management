@@ -10,6 +10,8 @@ function App() {
     title: "",
     content: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [editId, setEditId] = useState(null);
   const [isOpenDialogBox, setIsOpenDialogBox] = useState(false);
   function timeAgo(date) {
@@ -42,9 +44,17 @@ function App() {
   }
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${backendUri}/api/all`)
       .then((res) => res.json())
-      .then((data) => setPosts(data));
+      .then((data) => {
+        setLoading(false);
+        setPosts(data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err);
+      });
   }, []);
 
   const handleSubmit = (e) => {
@@ -124,37 +134,52 @@ function App() {
           setEditId={setEditId}
         />
       </nav>
-      <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gray-200 max-h-screen overflow-y-auto">
-        {posts.map((post) => (
-          <div
-            key={post._id}
-            className="bg-white rounded shadow p-4 hover:shadow-xl transition duration-200 ease-in-out"
-          >
-            <h2 className="p-2 text-4xl line-clamp-1">{post.title}</h2>
-            <p className="p-2 text-xl text-gray-700 line-clamp-2">
-              {post.content}
-            </p>
-            <p
-              title={formatDateToDDMMYYYY(post.dateCreated)}
-              className="p-2 text-gray-700"
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-700"></div>
+        </div>
+      ) : error ? (
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-xl text-red-500">Error: {error.message}</p>
+        </div>
+      ) : (
+        <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gray-200 max-h-screen overflow-y-auto">
+          {posts.map((post) => (
+            <div
+              key={post._id}
+              className="bg-white rounded shadow p-4 hover:shadow-xl transition duration-200 ease-in-out"
             >
-              {timeAgo(post.dateCreated)}
-            </p>
-            <button
-              className="m-2 p-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
-              onClick={() => handleEditPost(post)}
-            >
-              Edit
-            </button>
-            <button
-              className="m-2 p-4 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
-              onClick={() => handleDeletePost(post._id)}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
+              <h2 className="p-2 text-4xl line-clamp-1" title={post.title}>
+                {post.title}
+              </h2>
+              <p
+                className="p-2 text-xl text-gray-700 line-clamp-2"
+                title={post.content}
+              >
+                {post.content}
+              </p>
+              <p
+                title={formatDateToDDMMYYYY(post.dateCreated)}
+                className="p-2 text-gray-700"
+              >
+                {timeAgo(post.dateCreated)}
+              </p>
+              <button
+                className="m-2 p-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+                onClick={() => handleEditPost(post)}
+              >
+                Edit
+              </button>
+              <button
+                className="m-2 p-4 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+                onClick={() => handleDeletePost(post._id)}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }
