@@ -6,11 +6,11 @@ This is Take-home assignment for MERN stack developer role.
 
 # Demo
 
-[Visit]()
+[Visit](https://tha-blog-management.vercel.app/)
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot]()
 
 ## Run Locally
 
@@ -50,7 +50,7 @@ See `.env.sample`
 
 ## API Reference
 
-Import collection from `API_collection_User Auth Test.json`
+Import collection from `tha-blog-management_API_Collection.json` if using Thunder Client VS Code extension
 
 #### User signup
 

@@ -1,0 +1,81 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "MERN blog mangement",
+    "collectionId": "e412baa4-4d1f-446d-8cdc-9147e7d98e9a",
+    "dateExported": "2024-10-06T19:41:31.809Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "34ac5f3d-1366-4a1c-9046-4e6fb254c634",
+            "colId": "e412baa4-4d1f-446d-8cdc-9147e7d98e9a",
+            "containerId": "",
+            "name": "Create Post",
+            "url": "localhost:3000/api/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-10-06T11:01:36.627Z",
+            "modified": "2024-10-06T12:39:47.534Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\":\"test post 3\",\n  \"content\":\"test post 3\" \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "5b342139-0e58-4962-b351-09b5354cf26f",
+            "colId": "e412baa4-4d1f-446d-8cdc-9147e7d98e9a",
+            "containerId": "",
+            "name": "Get all Posts",
+            "url": "localhost:3000/api/all",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-10-06T12:40:14.253Z",
+            "modified": "2024-10-06T12:40:47.048Z",
+            "headers": []
+        },
+        {
+            "_id": "5f9c0a28-82ac-49c3-9311-bb8de1870d5c",
+            "colId": "e412baa4-4d1f-446d-8cdc-9147e7d98e9a",
+            "containerId": "",
+            "name": "Get Post",
+            "url": "localhost:3000/api/670285139a7ceb6ff25d8d94",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-10-06T12:41:23.613Z",
+            "modified": "2024-10-06T12:42:16.600Z",
+            "headers": []
+        },
+        {
+            "_id": "c33256ed-eae6-45ea-b015-ae9f652d4966",
+            "colId": "e412baa4-4d1f-446d-8cdc-9147e7d98e9a",
+            "containerId": "",
+            "name": "Update Post",
+            "url": "localhost:3000/api/6702850d9a7ceb6ff25d8d92",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-10-06T12:42:21.565Z",
+            "modified": "2024-10-06T18:03:32.966Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\":\"test post 1\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "b00c9db7-1f68-4eb3-bcac-0b11031e5613",
+            "colId": "e412baa4-4d1f-446d-8cdc-9147e7d98e9a",
+            "containerId": "",
+            "name": "Delete Post",
+            "url": "localhost:3000/api/670285139a7ceb6ff25d8d94",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-10-06T12:42:26.514Z",
+            "modified": "2024-10-06T12:43:29.750Z",
+            "headers": []
+        }
+    ],
+    "ref": "T1tsm5ZVhQuISA0Ng6k7blvrq-28NLDjYMAeiaEiSERnHY6ChEYm2wRZEsghwdmucGHrQc3tKjAOsr-1VdyPRQ"
+}

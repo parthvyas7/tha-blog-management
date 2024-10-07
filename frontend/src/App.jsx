@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./index.css";
+import DialogBox from "./DialogBox";
 
 const backendUri = import.meta.env.VITE_BACKEND_URI;
 
@@ -10,6 +11,35 @@ function App() {
     content: "",
   });
   const [editId, setEditId] = useState(null);
+  const [isOpenDialogBox, setIsOpenDialogBox] = useState(false);
+  function timeAgo(date) {
+    const units = [
+      { name: "year", millis: 1000 * 60 * 60 * 24 * 365 },
+      { name: "month", millis: 1000 * 60 * 60 * 24 * 30 },
+      { name: "day", millis: 1000 * 60 * 60 * 24 },
+      { name: "hour", millis: 1000 * 60 * 60 },
+      { name: "minute", millis: 1000 * 60 },
+      { name: "second", millis: 1000 },
+    ];
+
+    const formatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+    const elapsed = Date.now() - new Date(date).getTime();
+
+    for (let unit of units) {
+      if (Math.abs(elapsed) >= unit.millis || unit.name === "second") {
+        return formatter.format(Math.floor(elapsed / unit.millis), unit.name);
+      }
+    }
+  }
+
+  function formatDateToDDMMYYYY(date) {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+
+    return `${day}-${month}-${year}`;
+  }
 
   useEffect(() => {
     fetch(`${backendUri}/api/all`)
@@ -69,6 +99,7 @@ function App() {
       content: post.content,
     });
     setEditId(post._id);
+    setIsOpenDialogBox(true);
   };
 
   const handleDeletePost = (id) => {
@@ -81,34 +112,47 @@ function App() {
 
   return (
     <>
-      <h1>Blog App</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+      <nav className="flex justify-between items-center p-4">
+        <h1 className="text-3xl font-bold">Blog App</h1>
+        <DialogBox
+          handleSubmit={handleSubmit}
+          formData={formData}
+          setFormData={setFormData}
+          editId={editId}
+          setIsOpenDialogBox={setIsOpenDialogBox}
+          isOpenDialogBox={isOpenDialogBox}
+          setEditId={setEditId}
         />
-        <textarea
-          name="content"
-          placeholder="Content"
-          value={formData.content}
-          onChange={(e) =>
-            setFormData({ ...formData, content: e.target.value })
-          }
-        />
-        <button type="submit">{editId ? "Update Post" : "Create Post"}</button>
-      </form>
-      {posts.map((post) => (
-        <div key={post._id}>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-          <p>{post.dateCreated}</p>
-          <button onClick={() => handleEditPost(post)}>Edit</button>
-          <button onClick={() => handleDeletePost(post._id)}>Delete</button>
-        </div>
-      ))}
+      </nav>
+      <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-gray-200 max-h-screen overflow-y-auto">
+        {posts.map((post) => (
+          <div
+            key={post._id}
+            className="bg-white rounded-lg shadow-xl p-4 hover:scale-95 transition duration-300 ease-in-out"
+          >
+            <h2 className="p-4 text-4xl">{post.title}</h2>
+            <p className="p-4 text-xl text-gray-700">{post.content}</p>
+            <p
+              title={formatDateToDDMMYYYY(post.dateCreated)}
+              className="p-4 text-gray-700"
+            >
+              {timeAgo(post.dateCreated)}
+            </p>
+            <button
+              className="m-2 p-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+              onClick={() => handleEditPost(post)}
+            >
+              Edit
+            </button>
+            <button
+              className="p-4 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
+              onClick={() => handleDeletePost(post._id)}
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
