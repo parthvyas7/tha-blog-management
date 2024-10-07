@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import "./index.css";
-import DialogBox from "./DialogBox";
-import Modal from "./Modal";
-import SnackBar from "./SnackBar";
+import { DialogBox, Modal, SnackBar } from "./components";
 
 const backendUri = import.meta.env.VITE_BACKEND_URI;
 
