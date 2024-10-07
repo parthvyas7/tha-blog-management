@@ -16,7 +16,7 @@ function App() {
   const [editId, setEditId] = useState(null);
   const [isOpenDialogBox, setIsOpenDialogBox] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState({});
   function timeAgo(date) {
     const units = [
       { name: "year", millis: 1000 * 60 * 60 * 24 * 365 },
@@ -193,11 +193,13 @@ function App() {
               </div>
             ))
           )}
-          <Modal
-            setModalOpen={setModalOpen}
-            modalOpen={modalOpen}
-            post={post}
-          />
+          {posts.length === 0 ? null : (
+            <Modal
+              setModalOpen={setModalOpen}
+              modalOpen={modalOpen}
+              post={post}
+            />
+          )}
         </div>
       )}
     </>
