@@ -5,7 +5,6 @@ const Modal = ({ setModalOpen, modalOpen, post, setPost }) => {
 
   const closeModal = () => {
     setModalOpen(false);
-    setPost({});
   };
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const Modal = ({ setModalOpen, modalOpen, post, setPost }) => {
     const handleEscapeKey = (event) => {
       if (event.key === "Escape") {
         setModalOpen(false);
-        setPost({});
       }
     };
 
