@@ -3,7 +3,6 @@ import { useRef, useEffect } from "react";
 const Modal = ({ setModalOpen, modalOpen, post }) => {
   const modalRef = useRef(null);
 
-  const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
